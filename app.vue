@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h1> mithila rasanjith </h1>
+    <h1> {{ name }}</h1>
+
+    <ul>
+      <li> </li>
+    </ul>
+
   </div>
 </template>
 
