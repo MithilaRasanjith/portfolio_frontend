@@ -22,6 +22,18 @@
       </li>
     </ul>
   </div>
+
+  <div v-if="pending2">Loading Students...</div>
+  <div>
+    <h2>Students Info</h2>
+    <ul>
+      <li v-for="student in students">
+        <h3>{{ student.name }}</h3>
+        <p>{{ student.studentId }}</p>
+        <p>{{ student.age }}</p>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script setup>
@@ -31,11 +43,18 @@ const {
   pending,
   error,
 } = useFetch("http://localhost:5000/projects");
+
 const {
   data: blogs,
   pending1,
   error1,
 } = useFetch("http://localhost:5000/blogs");
+
+const {
+  data: students,
+  pending2,
+  error2,
+} = useFetch("http://localhost:5000/students");
 </script>
 
 <style scoped>
