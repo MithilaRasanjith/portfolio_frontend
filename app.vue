@@ -57,6 +57,6 @@ const {
 } = useFetch("http://localhost:5000/students");
 </script>
 
-<style scoped>
+<style>
 
 </style>
