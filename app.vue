@@ -1,4 +1,5 @@
 <template>
+  
   <h1>{{ name }}</h1>
 
   <div v-if="pending">Loading Projects...</div>
@@ -56,7 +57,11 @@
     <form @submit.prevent="deleteProject">
       <div>
       <label for="id">Id</label>
-      <input type="text" v-model="deleteProjectId" placeholder="Id" />
+      <select  v-model="deleteProjectId" required>
+        <option v-for="project in projects" :key="project._id" :value="project._id">
+          {{ project.name }}
+        </option>
+      </select>
       </div><br>
       <button type="submit">Delete Project</button>
       <br>
@@ -67,8 +72,12 @@
     <h2>Update a project</h2>
     <form @submit.prevent="updateProject">
       <div>
-      <label for="id">Id</label>
-      <input type="text" v-model="updateProjectId" placeholder="Id" />
+        <label for="id">Id</label>
+        <select  v-model="updateProjectId" required>
+          <option v-for="project in projects" :key="project._id" :value="project._id">
+            {{ project.name }}
+          </option>
+        </select>
       </div><br>
       <div>
       <label for="name">Name</label>
@@ -189,6 +198,14 @@ const updateProject = async () => {
     if (!response.ok) {
       throw new Error('Failed to update project');
     }
+
+    //update the project in the local list
+    const result = await response.json();
+    const index = projects.value.find((project) => project._id === id);
+    if(index !== -1) {
+      projects.value[index] = result;
+    }
+
 
     // Clear the form
     updateProjectId.value = '';
